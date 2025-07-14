@@ -1,0 +1,17 @@
+#include <MLX90640_API.h>
+
+bool detectHuman() {
+  // PIR Activation
+  if (digitalRead(PIR_PIN) == HIGH) {
+    float thermalData[768];
+    MLX90640_GetFrame(thermalData);
+    
+    // Check for human temp range (34°C-42°C)
+    for (int i = 0; i < 768; i++) {
+      if (thermalData[i] >= 34.0 && thermalData[i] <= 42.0) {
+        return true; // Human confirmed
+      }
+    }
+  }
+  return false;
+} 

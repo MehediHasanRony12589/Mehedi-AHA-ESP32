@@ -1,0 +1,11 @@
+#include <PN532.h>
+
+void handleNFCTag(uint8_t uid[]) {
+  if (compareUID(uid, NIGHT_MODE_UID)) {
+    // Activate low-power profile
+    analogWrite(LED_PIN, 25); // 10% brightness
+    setACMode(ECO_MODE);      // 26°C
+    muteAlarms();
+    Serial.println("Night mode activated");
+  }
+}
